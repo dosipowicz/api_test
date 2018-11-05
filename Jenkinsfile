@@ -18,7 +18,17 @@ pipeline {
          echo "hello ${env.sales}"
         script {
             currentBuild.displayName = "Test dostępności serwisu"
-def response = httpRequest 'https://dog.ceo/api/breeds/list/all'
+
+            def response = httpRequest
+                acceptType: 'APPLICATION_JSON',
+                contentType: 'APPLICATION_JSON',
+                LOGIN-HASH: '0000000',
+                httpMode: 'GET',
+                requestBody: body,
+                consoleLogResponseBody: true,
+                url: 'https://www.zlotewyprzedaze.pl/api/rest/catalog/sales',
+                validResponseContent: 'ok'
+                    println "Sent a notification, got a $response response"
         }
 
 
