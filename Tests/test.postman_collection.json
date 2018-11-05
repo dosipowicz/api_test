@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "0b853b02-c384-f5e1-4084-a9f854edc439",
+		"name": "test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TestResponseTime",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb08eb0b-fd0b-406c-99ca-4dd46bf2dfd8",
+						"exec": [
+							"",
+							"for (var i=0;i<5;i++){",
+							"    pm.sendRequest('https://www.zlotewyprzedaze.pl/api/rest/store', function (err, res) {",
+							"        pm.test('Response time is less than 600ms'+i.toString(), function () {",
+							"            pm.expect(err).to.not.be.ok;",
+							"            pm.expect(res).to.have.property('code', 200);",
+							"            pm.expect(res).to.have.property('status', 'OK');",
+							"            pm.expect(res.responseTime).to.be.below(600);",
+							"        });",
+							"    });",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f15eef3d-caff-47e3-a2b4-35cb02467711",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://www.zlotewyprzedaze.pl/api/rest/store",
+					"protocol": "https",
+					"host": [
+						"www",
+						"zlotewyprzedaze",
+						"pl"
+					],
+					"path": [
+						"api",
+						"rest",
+						"store"
+					]
+				}
+			},
+			"response": []
+		},
+	]
+}
