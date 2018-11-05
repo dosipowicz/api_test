@@ -13,10 +13,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-
-        git 'https://github.com/zlote/api_test/'
         sh 'npm run api-test'
-         echo "hello ${env.sales}"
         script {
             currentBuild.displayName = "Test dostępności serwisu"
             def patchOrg = """
@@ -26,12 +23,12 @@ pipeline {
 
             def json = new JsonSlurper().parseText(response.content)
             for (rec in json) {
-                println "$rec.id"
+                stage(module) {
+                    println "sale: $rec.id"
+                  }
+
             }
-                    println "Sent a notification, got a $response response"
         }
-
-
       }
     }
   }
