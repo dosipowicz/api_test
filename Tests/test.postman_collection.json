@@ -20,7 +20,7 @@
 							"            pm.expect(err).to.not.be.ok;",
 							"            pm.expect(res).to.have.property('code', 200);",
 							"            pm.expect(res).to.have.property('status', 'OK');",
-							"            pm.expect(res.responseTime).to.be.below(200);",
+							"            pm.expect(res.responseTime).to.be.below(100);",
 							"        });",
 							"    });",
 							"}",
