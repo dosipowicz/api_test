@@ -15,11 +15,11 @@ pipeline {
 
    post {
         success {
-            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${currentBuild.description} ' (${env.BUILD_URL})")
+            slackSend (color: '#008000', message: "$(currentBuild.currentResult): 'currentBuild.description ' (${env.BUILD_URL})")
         }
 
         failure {
-            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${currentBuild.description} ' (${env.BUILD_URL})")
+            slackSend (color: '#EC1414', message: "FAILURE: '${currentBuild.description} ' (${env.BUILD_URL})")
         }
     }
 }
