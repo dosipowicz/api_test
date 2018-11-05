@@ -18,7 +18,7 @@ pipeline {
          echo "hello ${env.sales}"
         script {
             currentBuild.displayName = "Test dostępności serwisu"
-
+def response = httpRequest 'https://dog.ceo/api/breeds/list/all'
         }
 
 
