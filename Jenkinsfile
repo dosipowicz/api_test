@@ -16,4 +16,15 @@ pipeline {
     }
   }
 
+   post {
+        success {
+            slackSend (color: '#008000', message: " ${currentBuild.displayName}: ${currentBuild.currentResult}  (${env.BUILD_URL})")
+        }
+
+        failure {
+            slackSend (color: '#EC1414', message: " ${currentBuild.displayName}: ${currentBuild.currentResult}  (${env.BUILD_URL})")
+        }
+
+
+    }
 }
