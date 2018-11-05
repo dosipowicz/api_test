@@ -24,7 +24,7 @@ pipeline {
             def json = new JsonSlurper().parseText(response.content)
             for (rec in json) {
                 stage(module) {
-                    println "sale: $rec.id"
+                    println "sale"
                   }
 
             }
