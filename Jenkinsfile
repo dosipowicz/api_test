@@ -9,17 +9,20 @@ pipeline {
         git 'https://github.com/zlote/api_test/'
         sh 'npm install'
         sh 'npm run api-test'
+        script {
+            currentBuild.displayName = "Test dostępności serwisu"
+        }
       }
     }
   }
 
    post {
         success {
-            slackSend (color: '#008000', message: " ${currentBuild.displayName} ${currentBuild.description}: ${currentBuild.currentResult} ' (${env.BUILD_URL})")
+            slackSend (color: '#008000', message: " ${currentBuild.displayName}: ${currentBuild.currentResult} ' (${env.BUILD_URL})")
         }
 
         failure {
-            slackSend (color: '#EC1414', message: "FAILURE: '${currentBuild.description} ' (${env.BUILD_URL})")
+            slackSend (color: '#EC1414', message: " ${currentBuild.displayName}: ${currentBuild.currentResult} ' (${env.BUILD_URL})")
         }
     }
 }
