@@ -8,6 +8,11 @@ pipeline {
       steps {
         git 'https://github.com/zlote/api_test/'
         sh 'npm install'
+      }
+    }
+    stage('Test') {
+      steps {
+        git 'https://github.com/zlote/api_test/'
         sh 'npm run api-test'
         script {
             currentBuild.displayName = "Test dostępności serwisu"
