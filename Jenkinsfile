@@ -12,11 +12,11 @@ pipeline {
     }
     stage('Test') {
       steps {
-      echo "hello ${env.WORKSPACE}"
+
         git 'https://github.com/zlote/api_test/'
         sh 'npm run api-test'
+         echo "hello ${env.sales}"
         script {
-        echo '${env.WORKSPACE}'
             currentBuild.displayName = "Test dostępności serwisu"
         }
       }

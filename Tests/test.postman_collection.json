@@ -13,7 +13,7 @@
 					"script": {
 						"id": "eb08eb0b-fd0b-406c-99ca-4dd46bf2dfd8",
 						"exec": [
-							"",
+							"postman.setEnvironmentVariable('sales', 997);",
 							"for (var i=0;i<5;i++){",
 							"    pm.sendRequest('https://www.zlotewyprzedaze.pl/api/rest/store', function (err, res) {",
 							"        pm.test('Response time is less than 600ms'+i.toString(), function () {",
