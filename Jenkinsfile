@@ -18,7 +18,14 @@ pipeline {
 
    post {
         always{
-            publishHTML ()
+            publishHTML (target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: '\test-output\html\',
+                  reportFiles: 'index.html',
+                  reportName: "RCov Report"
+                ])
         }
 
 
