@@ -19,12 +19,14 @@ pipeline {
             def patchOrg = """
                 {"scope": "[{id, section}]"}
             """
+
             def response = httpRequest consoleLogResponseBody: true, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'GET', url: "https://www.zlotewyprzedaze.pl/api/rest/catalog/sales", customHeaders: [[name: 'LOGIN-HASH', value: '0000000']], requestBody: patchOrg
 def jobs = [:]
             def json = new JsonSlurper().parseText(response.content)
             for (rec in json) {
                  println "sale: $rec.name"
-                 jobs["$rec.name"]== newJob()
+                 sh "echo Hello ${rec.name}"
+                 //jobs["$rec.name"]== newJob()
                  //sh 'newman run tests/test.postman_collection.json'
                  //slackSend (color: '#008000', message: " sprawdzam $rec.name")
             }
