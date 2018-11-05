@@ -26,7 +26,7 @@ pipeline {
 
             def json = new JsonSlurper().parseText(response.content)
             json.each {key, value}->
-                println "$key : $value"
+                println "$value.id"
             }
                     println "Sent a notification, got a $response response"
         }
