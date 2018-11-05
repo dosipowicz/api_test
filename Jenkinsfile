@@ -15,6 +15,7 @@ pipeline {
         git 'https://github.com/zlote/api_test/'
         sh 'npm run api-test'
         script {
+        echo '${env}'
             currentBuild.displayName = "Test dostępności serwisu"
         }
       }
