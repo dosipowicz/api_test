@@ -22,7 +22,7 @@ pipeline {
             def response = httpRequest
                 acceptType: 'APPLICATION_JSON',
                 contentType: 'APPLICATION_JSON',
-                LOGIN-HASH: '0000000',
+                customHeaders: [[name: 'LOGIN-HASH', value: '0000000']],
                 httpMode: 'GET',
                 requestBody: body,
                 consoleLogResponseBody: true,
