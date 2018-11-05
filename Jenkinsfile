@@ -18,13 +18,18 @@ pipeline {
 
    post {
         always{
-            publishHTML (target: [
+            archive (includes: 'pkg/*.gem')
+
+              // publish html
+              // snippet generator doesn't include "target:"
+              // https://issues.jenkins-ci.org/browse/JENKINS-29711.
+              publishHTML (target: [
                   allowMissing: false,
                   alwaysLinkToLastBuild: false,
                   keepAll: true,
-                  reportDir: '/var/tests',
+                  reportDir: 'coverage',
                   reportFiles: 'index.html',
-                  reportName: "Report"
+                  reportName: "RCov Report"
                 ])
         }
 
