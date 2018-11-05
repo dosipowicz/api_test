@@ -24,7 +24,7 @@ pipeline {
             def json = new JsonSlurper().parseText(response.content)
             for (rec in json) {
                  println "sale: $rec.id"
-                 slackSend (color: '#008000', message: " sprawdzam ${$rec.name}")
+                 slackSend (color: '#008000', message: " sprawdzam $rec.name")
             }
         }
       }
