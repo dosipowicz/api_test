@@ -17,9 +17,6 @@ pipeline {
   }
 
    post {
-        always{
-
-        }
 
         success {
             slackSend (color: '#008000', message: " ${currentBuild.displayName}: ${currentBuild.currentResult}  (${env.BUILD_URL})")
