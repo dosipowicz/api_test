@@ -18,16 +18,8 @@ pipeline {
          echo "hello ${env.sales}"
         script {
             currentBuild.displayName = "Test dostępności serwisu"
+            def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: patchOrg, url: "https://www.zlotewyprzedaze.pl/api/rest/catalog/sales", customHeaders: [[name: 'LOGIN-HASH', value: '0000000']]
 
-            def response = httpRequest
-                acceptType: 'APPLICATION_JSON',
-                contentType: 'APPLICATION_JSON',
-                customHeaders: [[name: 'LOGIN-HASH', value: '0000000']],
-                httpMode: 'GET',
-                requestBody: body,
-                consoleLogResponseBody: true,
-                url: 'https://www.zlotewyprzedaze.pl/api/rest/catalog/sales',
-                validResponseContent: 'ok'
                     println "Sent a notification, got a $response response"
         }
 
