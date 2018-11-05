@@ -6,7 +6,7 @@
     "test": "Tests"
   },
   "scripts": {
-    "api-test": "newman run tests/test.postman_collection.json"
+    "api-test": "newman run Tests/test.postman_collection.json"
   },
   "author": "Maciej Andrzejewski",
   "dependencies": {
