@@ -19,12 +19,6 @@ pipeline {
         script {
             currentBuild.displayName = "Test dostępności serwisu"
 
-            def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON',
-                      httpMode: 'GET',
-                      requestBody: body, consoleLogResponseBody: true,
-                      url: 'https://www.zlotewyprzedaze.pl/api/rest/catalog/sales',
-                      validResponseContent: 'ok'
-                    println "Sent a notification, got a $response response"
         }
 
 
