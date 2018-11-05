@@ -1,0 +1,15 @@
+{
+  "name": "zwapitest",
+  "version": "1.0.0",
+  "description": "API testing",
+  "directories": {
+    "test": "Tests"
+  },
+  "scripts": {
+    "api-test": "newman run tests/test.postman_collection.json"
+  },
+  "author": "Maciej Andrzejewski",
+  "dependencies": {
+    "newman": "^4.1.0"
+  }
+}
