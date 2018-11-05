@@ -22,7 +22,7 @@ pipeline {
                   allowMissing: false,
                   alwaysLinkToLastBuild: false,
                   keepAll: true,
-                  reportDir: './',
+                  reportDir: '/var/tests',
                   reportFiles: 'index.html',
                   reportName: "Report"
                 ])
