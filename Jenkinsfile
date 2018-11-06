@@ -23,7 +23,7 @@ pipeline {
     stage('bzz') {
       steps {
         println "salebzzz"
-        build job: "zwtesty/master", propagate: true, wait: true, parameters: [sale:1234]
+        build job: "zwtesty/master", propagate: true, wait: true, parameters: [[$class: 'StringParameterValue', name: 'sale', value: "some-value" ]]
       }
     }
     stage('Test') {
