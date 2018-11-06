@@ -27,7 +27,7 @@ pipeline {
 
             def response = httpRequest consoleLogResponseBody: false, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'GET', url: "https://www.zlotewyprzedaze.pl/api/rest/catalog/sales", customHeaders: [[name: 'LOGIN-HASH', value: '0000000']], requestBody: patchOrg
             def json = new JsonSlurper().parseText(response.content)
-sh "echo ${json}"
+sh "echo ${response.content}"
 
             for (rec in json) {
                  println "sale: $rec.name"
