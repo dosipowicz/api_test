@@ -23,7 +23,7 @@ pipeline {
     stage('bzz') {
       steps {
         println "salebzzz"
-        build job: "zwtesty/master", propagate: true, wait: true
+        build(job: "zwtesty/master", propagate: true, wait: true,sale:1234)
       }
     }
     stage('Test') {
