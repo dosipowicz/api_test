@@ -20,18 +20,6 @@ pipeline {
         sh 'npm install'
       }
     }
-    stage('Test Sale'){
-        parallel {
-            stage('Branch A') {
-                agent {
-                    label "for-branch-c"
-                }
-                steps {
-                    echo "In stage Nested 1 within Branch A"
-                }
-            }
-        }
-    }
     stage('Test') {
       steps {
         //sh 'npm run api-test'
