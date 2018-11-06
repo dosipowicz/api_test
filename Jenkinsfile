@@ -24,7 +24,7 @@ pipeline {
             def json = new JsonSlurper().parseText(response.content)
             for (rec in json) {
                  println "sale: $rec.name"
-                 sh "echo Hello ${rec.name}"
+                 //sh "echo Hello ${rec.name}"
                  //jobs["$rec.name"]== newJob()
                  //sh 'newman run tests/test.postman_collection.json'
                  //slackSend (color: '#008000', message: " sprawdzam $rec.name")
