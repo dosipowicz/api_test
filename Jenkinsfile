@@ -23,6 +23,7 @@ pipeline {
     stage('bzz') {
       steps {
         println "salebzzz"
+        build job: "zwtesty/master", propagate: true, wait: true
       }
     }
     stage('Test') {
@@ -36,7 +37,7 @@ pipeline {
 
             def response = httpRequest consoleLogResponseBody: false, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'GET', url: "https://www.zlotewyprzedaze.pl/api/rest/catalog/sales", customHeaders: [[name: 'LOGIN-HASH', value: '0000000']], requestBody: patchOrg
             def json = new JsonSlurper().parseText(response.content)
-            build job: "zwtesty/master", propagate: true, wait: true
+
             for (rec in json) {
 
                  println "sale: $rec.name"
