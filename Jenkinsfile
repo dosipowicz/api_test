@@ -30,6 +30,7 @@ pipeline {
 
             for (rec in json) {
                  println "sale: $rec.name"
+                 sh 'npm run api-test'
                  //sh "echo Hello ${rec.name}"
                  //jobs["$rec.name"]== newJob()
                  //sh 'newman run tests/test.postman_collection.json'
