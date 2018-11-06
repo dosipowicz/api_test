@@ -19,7 +19,6 @@ pipeline {
     stage('bzz') {
       steps {
         echo 'Start: ${params.sale_id}'
-        build job: "zwtesty/master", propagate: true, wait: true, parameters: [[$class: 'StringParameterValue', name: 'sale', value: "some-value" ]]
       }
     }
     stage('Test') {
