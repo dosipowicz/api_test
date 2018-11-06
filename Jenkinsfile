@@ -27,10 +27,14 @@ pipeline {
 
             def response = httpRequest consoleLogResponseBody: true, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'GET', url: "https://www.zlotewyprzedaze.pl/api/rest/catalog/sales", customHeaders: [[name: 'LOGIN-HASH', value: '0000000']], requestBody: patchOrg
             def json = new JsonSlurper().parseText(response.content)
-            for (rec in json) {
-            stage('Test'){
-                sh "echo Hello aaa"
+
+            for (int i = 0; i < json.length; i++) {
+                stage("Test ${json[i]}") {
+                    sh "echo Hello aaa"
+                }
             }
+
+            for (rec in json) {
                  println "sale: $rec.name"
                  //sh "echo Hello ${rec.name}"
                  //jobs["$rec.name"]== newJob()
