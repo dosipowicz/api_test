@@ -23,17 +23,11 @@ pipeline {
     stage('Test Sale'){
         parallel {
             stage('Branch A') {
-                                agent {
-                                    label "for-branch-c"
-                                }
-steps {
-                                echo "In stage Nested 1 within Branch A"
-                            }
+                agent {
+                    label "for-branch-c"
                 }
                 steps {
-steps {
-                                echo "In stage Nested 1 within Branch C"
-                            }
+                    echo "In stage Nested 1 within Branch A"
                 }
             }
         }
