@@ -1,8 +1,5 @@
 import groovy.json.JsonSlurper
-pipeline {
-  agent any
 
-  tools {nodejs "nodeJS"}
 def transformDeployBuildStep(OS) {
     return {
         node ('master') {
@@ -11,6 +8,11 @@ def transformDeployBuildStep(OS) {
         } } // ts / node
     } // closure
 } // transformDeployBuildStep
+pipeline {
+  agent any
+
+  tools {nodejs "nodeJS"}
+
   stages {
     stage('Install') {
       steps {
