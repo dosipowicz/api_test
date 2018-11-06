@@ -22,8 +22,8 @@ pipeline {
     }
     stage('Test Sale'){
         stepsForParallel = [:]
-          for (int i = 0; i < TargetOSs.size(); i++) {
-              def s = TargetOSs.get(i)
+          for (int i = 0; i < 10; i++) {
+              def s = i
               def stepName = "CentOS ${s} Deployment"
               stepsForParallel[stepName] = transformDeployBuildStep(s)
           }
