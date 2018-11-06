@@ -1,15 +1,11 @@
 import groovy.json.JsonSlurper
 
-def transformDeployBuildStep(OS) {
-    return {
-        node ('master') {
-        wrap([$class: 'TimestamperBuildWrapper']) {
-
-        } } // ts / node
-    } // closure
-} // transformDeployBuildStep
 pipeline {
   agent any
+
+    parameters{
+        string(name:sale_id)
+    }
 
   tools {nodejs "nodeJS"}
 
@@ -22,7 +18,7 @@ pipeline {
     }
     stage('bzz') {
       steps {
-        println "salebzzz"
+        echo 'Start: ${params.sale_id}'
         build job: "zwtesty/master", propagate: true, wait: true, parameters: [[$class: 'StringParameterValue', name: 'sale', value: "some-value" ]]
       }
     }
