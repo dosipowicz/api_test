@@ -4,7 +4,7 @@ pipeline {
   agent any
 
     parameters{
-        string(name:sale_id)
+        string(name:sale_id, defaultValue:'')
     }
 
 
