@@ -23,7 +23,6 @@ pipeline {
     stage('Test Sale'){
         parallel {
             stage('Branch A') {
-                agent {
 steps {
                                 echo "In stage Nested 1 within Branch A"
                             }
