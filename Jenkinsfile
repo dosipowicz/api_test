@@ -3,7 +3,14 @@ pipeline {
   agent any
 
   tools {nodejs "nodeJS"}
+def transformDeployBuildStep(OS) {
+    return {
+        node ('master') {
+        wrap([$class: 'TimestamperBuildWrapper']) {
 
+        } } // ts / node
+    } // closure
+} // transformDeployBuildStep
   stages {
     stage('Install') {
       steps {
@@ -12,9 +19,14 @@ pipeline {
       }
     }
     stage('Test Sale'){
-        steps{
-            println "sale:_____"
-        }
+        stepsForParallel = [:]
+          for (int i = 0; i < TargetOSs.size(); i++) {
+              def s = TargetOSs.get(i)
+              def stepName = "CentOS ${s} Deployment"
+              stepsForParallel[stepName] = transformDeployBuildStep(s)
+          }
+          stepsForParallel['failFast'] = false
+          parallel stepsForParallel
     }
     stage('Test') {
       steps {
