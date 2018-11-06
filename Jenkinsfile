@@ -7,6 +7,7 @@ pipeline {
         string(name:sale_id)
     }
 
+
   tools {nodejs "nodeJS"}
 
   stages {
