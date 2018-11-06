@@ -29,7 +29,7 @@ pipeline {
             def json = new JsonSlurper().parseText(response.content)
             for (int i = 0; i < json.length; i++) {
                 stage("Test ${json[i]}") {
-                    println "sale1: $json[i]"
+                    println "sale1: $json[i].name"
                 }
             }
 
