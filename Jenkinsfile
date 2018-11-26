@@ -86,7 +86,7 @@ pipeline {
                     body: '${FILE,path="reports/newman.html"}',
                     mimeType: 'text/html',
                     subject: currentBuild.displayName,
-                    to: 'm.andrzejewski@zlotewyprzedaze.pl'
+                    to: 'campaign_check@zlotewyprzedaze.pl'
                     ])
 
                slackSend (color: 'danger', message: " ${currentBuild.displayName}: ${currentBuild.currentResult}  (${env.BUILD_URL}HTML_20Report/)")
