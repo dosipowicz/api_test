@@ -52,7 +52,6 @@ pipeline {
                 }
         }
     }
-
     stage('test sale') {
         when {
              expression { params.SALE != null }
