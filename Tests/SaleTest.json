@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "a6e92f69-ca77-41ac-ba1b-5e135e2aded5",
+		"name": "SaleTest copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test Sale",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8ba4843c-cd4c-4f0f-a024-7db1e64d196a",
+						"exec": [
+							"pm.environment.set(\"sale_id\",pm.globals.get(\"sale_id\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d2e0e6c-5541-43cf-9939-26e1bf35c738",
+						"exec": [
+							"var sale_id=pm.environment.get(\"sale_id\");",
+							"",
+							"var response=pm.response.json();",
+							"var products=response.products;",
+							"var sale=response.category;",
+							"",
+							"pm.variables.set(\"sale\",sale);",
+							"",
+							"pm.test(\"(\"+sale_id+\") Pobranie produktów: prawidłowy kod odpowiedzi serwera 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Kampania \"+sale.name+\" (\"+sale.sale_sys_code_cat+\"): czas ładowania produktów jest mniejszy niż 10000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(100);",
+							"});",
+							"",
+							"pm.test(\"Kampania \"+sale.name+\" (\"+sale.sale_sys_code_cat+\"): liczba produktów większa od 0\", function () {",
+							"    pm.expect(response.products_counter).to.be.above(0);",
+							"});",
+							"",
+							"var sold=0;",
+							"products.forEach(function(product){",
+							"    if(product.qty===0){",
+							"        sold++;",
+							"    }",
+							"});",
+							"",
+							"var soldPercent=(sold * 100) / response.products_counter;",
+							"",
+							"pm.test(\"Kampania \"+sale.name+\" (\"+sale.sale_sys_code_cat+\") nie jest wyprzedana w całości\", function () {",
+							"    pm.expect(soldPercent).to.be.below(100);",
+							"});",
+							"",
+							"",
+							"",
+							"if(soldPercent<100){",
+							"    //losuje produkt",
+							"    do{",
+							"        var product = products[Math.floor(Math.random()*products.length)];",
+							"    }while(product.qty==0)",
+							"    ",
+							"    do{",
+							"        var size = product.sizes[Math.floor(Math.random()*product.sizes.length)];",
+							"    }while(size.qty===0)",
+							"",
+							"    //dodanie do koszyka",
+							"    var echoPostRequest = {",
+							"          url: 'https://www.zlotewyprzedaze.pl/api/rest/quote/items',",
+							"          method: 'POST',",
+							"          header:[\"LOGIN-HASH:0000000\",\"content-type:application/x-www-form-urlencoded\"],",
+							"          body:{",
+							"              mode: 'urlencoded',",
+							"              urlencoded:[",
+							"                {key:\"product_id\",value:product.entity_id},",
+							"                {key:\"super_attribute[151]\",value:size.size_id},",
+							"              ]",
+							"            }",
+							"        };",
+							"",
+							"    pm.sendRequest(echoPostRequest, function (err, res) {",
+							"",
+							"        var _sale=pm.variables.get(\"sale\");",
+							"        ",
+							"        pm.test(\"Kampania \"+_sale.name+\" (\"+_sale.sale_sys_code_cat+\"): Dodanie produktu do koszyka : Prawidłowy kod odpowiedzi serwera 200\", function () {",
+							"            pm.expect(res.code).to.be.ok;",
+							"        });",
+							"        var json=res.json();",
+							"        ",
+							"       ",
+							"       var sale=json.sales.find((sale)=>{",
+							"          return sale.products.find((item)=>{",
+							"              return item.product_id==product.entity_id;",
+							"          }) ",
+							"       });",
+							"       ",
+							"       var iteminQuote=sale.products.find((item)=>{",
+							"            return item.product_id==product.entity_id;",
+							"       })",
+							"       ",
+							"        pm.test(\"Kampania \"+_sale.name+\" (\"+_sale.sale_sys_code_cat+\"): Dodany produkt istnieje w koszyku\", function() {",
+							"          pm.expect(iteminQuote).to.have.property('item_id');",
+							"        });",
+							"    ",
+							"        if(iteminQuote){",
+							"            //usunięcie z koszyka",
+							"            echoPostRequest.url='https://www.zlotewyprzedaze.pl/api/rest/quote/items/'+iteminQuote.item_id;",
+							"            echoPostRequest.method='DELETE';",
+							"            echoPostRequest.header=[\"LOGIN-HASH:0000000\"],",
+							"            echoPostRequest.body=null;",
+							"            pm.sendRequest(echoPostRequest)",
+							"        }",
+							"    })",
+							"}",
+							"",
+							"return 'aaaaaaaa';",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "LOGIN-HASH",
+						"value": "0000000",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"category_id\":{{sale_id}},\n\t\"scope\":\"{category{name,id,sale_sys_code_cat},products_counter,products{entity_id,name,qty,sizes}}\"\n}"
+				},
+				"url": {
+					"raw": "https://www.zlotewyprzedaze.pl/api/rest/catalog/products",
+					"protocol": "https",
+					"host": [
+						"www",
+						"zlotewyprzedaze",
+						"pl"
+					],
+					"path": [
+						"api",
+						"rest",
+						"catalog",
+						"products"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

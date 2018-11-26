@@ -1,0 +1,41 @@
+import groovy.json.JsonSlurper
+
+pipeline {
+  agent any
+
+  tools {nodejs "nodeJS"}
+
+  stages {
+
+    stage('get sales'){
+            when {
+                 expression { params.SALE == null }
+            }
+        steps{
+         script {
+                def patchOrg = """
+                        {scope: "[{id, section}]"}
+                    """
+
+                    //def response = httpRequest consoleLogResponseBody: false, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'GET', url: "https://www.zlotewyprzedaze.pl/api/rest/catalog/sales", customHeaders: [[name: 'LOGIN-HASH', value: '0000000']], requestBody: patchOrg
+                    //def json = new JsonSlurper().parseText(response.content)
+
+                    //for (rec in json) {
+                     //   println "sale: $rec.name"
+                    //}
+                    build job: "maciek", propagate: true, wait: true, parameters: [[$class: 'StringParameterValue', name: 'SALE', value: "some-value" ]]
+                }
+        }
+    }
+
+    stage('test sale') {
+        when {
+             expression { params.SALE != null }
+        }
+
+        steps {
+            echo "testing ${params.SALE}"
+        }
+    }
+}
+}

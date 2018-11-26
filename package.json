@@ -1,15 +1,19 @@
 {
-  "name": "zwapitest",
+  "name": "zwtesty",
   "version": "1.0.0",
-  "description": "API testing",
-  "directories": {
-    "test": "Tests"
-  },
+  "description": "",
   "scripts": {
-    "api-test": "newman run Tests/test.postman_collection.json"
+    "test-sale": "newman run Tests/SaleTest.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://corozya@bitbucket.org/corozya/zwtesty.git"
   },
   "author": "Maciej Andrzejewski",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/corozya/zwtesty#readme",
   "dependencies": {
-    "newman": "^4.1.0"
+    "newman": "^4.2.2",
+    "newman-reporter-html": "^1.0.0"
   }
 }
