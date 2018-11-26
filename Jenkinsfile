@@ -57,7 +57,6 @@ pipeline {
         when {
              expression { params.SALE != null }
         }
-
         steps {
             sh 'printenv'
             sh "npm install --save-dev"
