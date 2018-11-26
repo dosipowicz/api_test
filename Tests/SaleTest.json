@@ -38,7 +38,7 @@
 							"",
 							"",
 							"pm.test(\"Kampania \"+sale.name+\" (\"+sale.sale_sys_code_cat+\"): czas ładowania produktów jest mniejszy niż 10000ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(10000);",
+							"    pm.expect(pm.response.responseTime).to.be.below(100);",
 							"});",
 							"",
 							"pm.test(\"Kampania \"+sale.name+\" (\"+sale.sale_sys_code_cat+\"): liczba produktów większa od 0\", function () {",
