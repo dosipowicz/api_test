@@ -71,12 +71,12 @@ pipeline {
                     unstableOnWarning: true,
                     useProjectRule: false])
 
-                    echo currentBuild.currentResult;
+                    echo currentBuild.toString()
         }
     }}
    post {
-   always{
-   echo currentBuild.currentResult;
+   unstable{
+    echo currentBuild.currentResult;
    }
         failure {
             archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
