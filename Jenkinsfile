@@ -77,7 +77,11 @@ pipeline {
     }}
    post {
        always{
-       textFinder(/^skipping: no hosts matched$/, '', true, false, false)
+        logparser([$class: 'LogParserPublisher',
+                           failBuildOnError: true,
+                           parsingRulesPath: '/rules/rule1',
+                           unstableOnWarning: true,
+                           useProjectRule: false])
         //currentBuild.logFile.text.readLines().any { it =~ /.*✗.*/ }
        }
        unstable{
