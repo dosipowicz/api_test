@@ -76,12 +76,13 @@ pipeline {
         }
     }}
    post {
-   always{
-    echo currentBuild.logFile.text
-   }
-   unstable{
-    echo currentBuild.currentResult;
-   }
+       every{
+       textFinder(/^skipping: no hosts matched$/, '', true, false, false)
+        //currentBuild.logFile.text.readLines().any { it =~ /.*✗.*/ }
+       }
+       unstable{
+            echo currentBuild.currentResult;
+       }
         failure {
             archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
             publishHTML([
