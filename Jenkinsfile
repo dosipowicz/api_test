@@ -71,7 +71,7 @@ pipeline {
                     unstableOnWarning: true,
                     useProjectRule: false])
 
-                    echo currentBuild.toString()
+                    echo currentBuild.getResult()
         }
     }}
    post {
