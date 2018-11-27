@@ -70,9 +70,9 @@ pipeline {
                     parsingRulesPath: '/rules/rule1',
                     unstableOnWarning: true,
                     useProjectRule: false])
- script{
-                    currentBuild.dump()
-                    currentBuild.properties.each { println "$it.key -> $it.value" }
+                    script{
+                        currentBuild.rawBuild
+                        currentBuild.rawBuild.dump()
                     }
         }
     }}
