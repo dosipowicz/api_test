@@ -71,7 +71,8 @@ pipeline {
                     unstableOnWarning: true,
                     useProjectRule: false])
 
-                    echo currentBuild.dump()
+                    currentBuild.dump()
+                    currentBuild.properties.each { println "$it.key -> $it.value" }
         }
     }}
    post {
