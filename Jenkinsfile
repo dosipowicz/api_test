@@ -64,11 +64,15 @@ pipeline {
                 //echo "testing1 ${params.SALE}"
             }
             sh "npm run test-sale -s -- --global-var 'sale_id=${params.SALE}' -r cli,html --reporter-html-export reports/newman.html --reporter-html-template template-default.hbs"
+
+            step([$class: 'LogParserPublisher',
+                    failBuildOnError: true,
+                    parsingRulesPath: '/rules/rule1',
+                    useProjectRule: false])
         }
     }}
    post {
         failure {
-
             archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
             publishHTML([
                 allowMissing: false,
@@ -79,15 +83,15 @@ pipeline {
                 reportName: 'HTML Report',
                 reportTitles: 'Raport'])
 
-                emailext([
-                    attachLog: true,
-                    body: '${FILE,path="reports/newman.html"}',
-                    mimeType: 'text/html',
-                    subject: currentBuild.displayName,
-                    to: 'campaign_check@zlotewyprzedaze.pl'
-                    ])
+                //emailext([
+                //    attachLog: true,
+                //    body: '${FILE,path="reports/newman.html"}',
+                ///    mimeType: 'text/html',
+                //    subject: currentBuild.displayName,
+                //    to: 'campaign_check@zlotewyprzedaze.pl'
+                //    ])
 
-               slackSend (color: 'danger', message: " ${currentBuild.displayName}: ${currentBuild.currentResult}  (${env.BUILD_URL}HTML_20Report/)")
+               //slackSend (color: 'danger', message: " ${currentBuild.displayName}: ${currentBuild.currentResult}  (${env.BUILD_URL}HTML_20Report/)")
         }
     }
 }
