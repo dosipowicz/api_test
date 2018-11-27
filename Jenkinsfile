@@ -63,8 +63,11 @@ pipeline {
                 currentBuild.displayName = "Test kampanii ${params.SALE}"
                 //echo "testing1 ${params.SALE}"
             }
-
-                    sh "npm run test-sale -s -- --global-var 'sale_id=${params.SALE}' -r cli,html --reporter-html-export reports/newman.html --reporter-html-template template-default.hbs"
+echo "bzz1"
+def commit = sh (returnStdout: true, script: "npm run test-sale -s -- --global-var 'sale_id=${params.SALE}' -r cli,html --reporter-html-export reports/newman.html --reporter-html-template template-default.hbs")
+echo "${commit[-1]} "
+echo "bzz2"
+                    //sh "npm run test-sale -s -- --global-var 'sale_id=${params.SALE}' -r cli,html --reporter-html-export reports/newman.html --reporter-html-template template-default.hbs"
 
             step([$class: 'LogParserPublisher',
                     failBuildOnError: true,
@@ -77,7 +80,7 @@ pipeline {
     }}
    post {
        always{
-        logparser([$class: 'LogParserPublisher',
+        step([$class: 'LogParserPublisher',
                            failBuildOnError: true,
                            parsingRulesPath: '/rules/rule1',
                            unstableOnWarning: true,
