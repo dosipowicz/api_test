@@ -68,8 +68,9 @@ pipeline {
             step([$class: 'LogParserPublisher',
                     failBuildOnError: true,
                     parsingRulesPath: '/rules/rule1',
-                    useProjectRule: false])
                     unstableOnWarning: true,
+                    useProjectRule: false])
+
                     echo currentBuild.currentResult;
         }
     }}
