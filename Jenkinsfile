@@ -69,6 +69,7 @@ pipeline {
                     failBuildOnError: true,
                     parsingRulesPath: '/rules/rule1',
                     useProjectRule: false])
+                    unstableOnWarning: true,
                     echo currentBuild.currentResult;
         }
     }}
