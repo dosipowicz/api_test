@@ -76,7 +76,7 @@ pipeline {
         }
     }}
    post {
-   every{
+   always{
     echo currentBuild.logFile.text
    }
    unstable{
