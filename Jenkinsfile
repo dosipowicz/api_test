@@ -76,7 +76,7 @@ pipeline {
         }
     }}
    post {
-       every{
+       always{
        textFinder(/^skipping: no hosts matched$/, '', true, false, false)
         //currentBuild.logFile.text.readLines().any { it =~ /.*✗.*/ }
        }
