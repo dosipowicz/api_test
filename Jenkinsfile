@@ -56,7 +56,6 @@ pipeline {
         when {
              expression { params.SALE != null }
         }
-         try{
         steps {
             sh 'printenv'
             sh "npm install --save-dev"
@@ -64,9 +63,13 @@ pipeline {
                 currentBuild.displayName = "Test kampanii ${params.SALE}"
                 //echo "testing1 ${params.SALE}"
             }
-
+            script{
+            try{
                 sh "npm run test-sale -s -- --global-var 'sale_id=${params.SALE}' -r cli,html --reporter-html-export reports/newman.html --reporter-html-template template-default.hbs"
-
+            }catch(Exception e){
+                echo e.toString()
+            }
+            }
             step([$class: 'LogParserPublisher',
                     failBuildOnError: true,
                     parsingRulesPath: '/rules/rule1',
@@ -74,9 +77,6 @@ pipeline {
                     useProjectRule: false])
 
         }
-         }catch(Exception e){
-                        echo e.toString()
-                    }
     }}
    post {
    unstable{
