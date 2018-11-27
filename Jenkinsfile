@@ -71,7 +71,7 @@ pipeline {
                     unstableOnWarning: true,
                     useProjectRule: false])
 
-                    echo currentBuild.durationString
+                    echo currentBuild.dump()
         }
     }}
    post {
