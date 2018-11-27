@@ -66,17 +66,13 @@ pipeline {
 
                     sh "npm run test-sale -s -- --global-var 'sale_id=${params.SALE}' -r cli,html --reporter-html-export reports/newman.html --reporter-html-template template-default.hbs"
 
-            script{
-                            try{
             step([$class: 'LogParserPublisher',
                     failBuildOnError: true,
                     parsingRulesPath: '/rules/rule1',
                     unstableOnWarning: true,
                     useProjectRule: false])
-}catch(Exception e){
-                    echo e.toString()
-                }
-            }
+
+            step([$class: 'LogParserResult'])
         }
     }}
    post {
