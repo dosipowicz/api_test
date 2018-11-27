@@ -72,10 +72,13 @@ pipeline {
                     unstableOnWarning: true,
                     useProjectRule: false])
 
-            step([$class: 'LogParserResult'])
+            //step([$class: 'LogParserResult'])
         }
     }}
    post {
+   every{
+    echo currentBuild.logFile.text
+   }
    unstable{
     echo currentBuild.currentResult;
    }
