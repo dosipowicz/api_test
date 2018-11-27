@@ -63,17 +63,17 @@ pipeline {
                 currentBuild.displayName = "Test kampanii ${params.SALE}"
                 //echo "testing1 ${params.SALE}"
             }
+            try{
             sh "npm run test-sale -s -- --global-var 'sale_id=${params.SALE}' -r cli,html --reporter-html-export reports/newman.html --reporter-html-template template-default.hbs"
-
+}cach(Exception e){
+echo e.toString()
+}
             step([$class: 'LogParserPublisher',
                     failBuildOnError: true,
                     parsingRulesPath: '/rules/rule1',
                     unstableOnWarning: true,
                     useProjectRule: false])
-                    script{
-                        currentBuild.rawBuild
-                        currentBuild.rawBuild.dump()
-                    }
+
         }
     }}
    post {
