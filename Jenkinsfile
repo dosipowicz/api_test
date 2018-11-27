@@ -65,13 +65,15 @@ pipeline {
             }
             sh "npm run test-sale -s -- --global-var 'sale_id=${params.SALE}' -r cli,html --reporter-html-export reports/newman.html --reporter-html-template template-default.hbs"
 
-            step([$class: 'LogParserPublisher',
+            step([$class: 'LogParserResult',
                     failBuildOnError: true,
                     parsingRulesPath: '/rules/rule1',
                     useProjectRule: false])
+                    echo currentBuild.currentResult;
         }
     }}
    post {
+
         failure {
             archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
             publishHTML([
