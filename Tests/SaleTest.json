@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a6e92f69-ca77-41ac-ba1b-5e135e2aded5",
+		"_postman_id": "83f1c42f-a286-4383-9c00-44c5fbb4f7b2",
 		"name": "SaleTest copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -47,6 +47,11 @@
 							"",
 							"var sold=0;",
 							"products.forEach(function(product){",
+							"pm.test(\"Produkt \"+product.name+\" ma podejrzaną cenę \", function () {",
+							"    var price=product.special_price ? product.special_price: product.price;",
+							"",
+							"    pm.expect(parseInt(price)).to.be.above(0);",
+							"});",
 							"    if(product.qty===0){",
 							"        sold++;",
 							"    }",
@@ -145,7 +150,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"category_id\":{{sale_id}},\n\t\"scope\":\"{category{name,id,sale_sys_code_cat},products_counter,products{entity_id,name,qty,sizes}}\"\n}"
+					"raw": "{\n\t\"category_id\":{{sale_id}},\n\t\"scope\":\"{category{name,id,sale_sys_code_cat},products_counter,products{entity_id,name,qty,sizes,price,special_price}}\"\n}"
 				},
 				"url": {
 					"raw": "https://www.zlotewyprzedaze.pl/api/rest/catalog/products",
